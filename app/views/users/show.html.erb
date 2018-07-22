@@ -1,0 +1,15 @@
+<div class="row">
+  <aside class="col-xs-4">
+    <%= @user.name %>
+    <%= link_to "登録情報の修正", edit_user_path(@user) %>
+    <a href="#">ログアウト</a>
+  </aside>
+  <div class="col-xs-8">
+    <ul class="nav nav-tabs nav-justified">
+      <li><a href="#">クチコミ</a></li>
+      <li><a href="#">参考になった！</a></li>
+      <li><a href="#">良かった！</a></li>
+      <li><a href="#">気になる！</a></li>
+    </ul>
+  </div>
+</div>

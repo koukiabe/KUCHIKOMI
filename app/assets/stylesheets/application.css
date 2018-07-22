@@ -58,7 +58,7 @@ footer .footer-brand h3 {
   font-weight: bold;
   letter-spacing: 0.15em;
 }
-img {
+.description img {
   padding-bottom: 10px;
   margin-top: 30px;
   width: 300px;
