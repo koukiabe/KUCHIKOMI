@@ -1,38 +1,40 @@
-<% content_for :cover do %>
-  <div class="cover">
-    <div class="cover-inner">
-      <div class="cover-contents">
-        <h1>KUCHIKOMI</h1>
-        <%= link_to '登録して始める', signup_path, class: 'btn btn-success btn-lg' %>
+<% if logged_in? %>
+  <%= link_to "マイページ", user_path(current_user) %>
+<% else %>
+  <% content_for :cover do %>
+    <div class="cover">
+      <div class="cover-inner">
+        <div class="cover-contents">
+          <h1>KUCHIKOMI</h1>
+          <%= link_to '登録して始める', signup_path, class: 'btn btn-success btn-lg' %>
+        </div>
       </div>
     </div>
+  <% end %>
+  
+  <div class="row">
+    <div class="contents col-sm-offset-4 col-sm-4">
+      <h2>KUCHIKOMIでできること</h2>
+    </div>
+    <div class="description col-sm-offset-2 col-sm-3">
+      <img src="/images/spot.jpg" alt="spotイメージ">
+      <h3>SPOT検索</h3>
+      <p>観光地、商業施設、動物園など様々な場所についての口コミを見たり投稿したりできます。</p>
+    </div>
+    <div class="description col-sm-offset-2 col-sm-3">
+      <img src="/images/restaurant.jpg" alt="restaurantイメージ">
+      <h3>RESTAURANT検索</h3>
+      <p>カフェ、レストラン、ラーメン屋など様々なジャンルの飲食店についての口コミを見たり投稿したりできます。</p>
+    </div>
+    <div class="contents col-sm-12">
+      <h3>キーワード入力で検索できます。</h3>
+        <ul>
+          <li>行ったことあったり気になったりしたスポットや飲食店には『気になる！』『良かった！』でリストにできます。</li>
+          <li>参考になった口コミには『参考になった！』でリストにできます。</li>
+          <li>『気になる！』『良かった！』数が多い順にランキングが見れます。</li>
+        </ul>
+      <p>お気に入りのスポットや飲食店を見つけたり、紹介したりしましょう！</p>
+    </div>
+    
   </div>
 <% end %>
-
-<div class="row">
-  <div class="contents col-sm-offset-4 col-sm-4">
-    <h2>KUCHIKOMIでできること</h2>
-  </div>
-  <div class="description col-sm-offset-2 col-sm-3">
-    <img src="/images/spot.jpg" alt="spotイメージ">
-    <h3>SPOT検索</h3>
-    <p>観光地、商業施設、動物園など様々な場所についての口コミを見たり投稿したりできます。</p>
-  </div>
-  <div class="description col-sm-offset-2 col-sm-3">
-    <img src="/images/restaurant.jpg" alt="restaurantイメージ">
-    <h3>RESTAURANT検索</h3>
-    <p>カフェ、レストラン、ラーメン屋など様々なジャンルの飲食店についての口コミを見たり投稿したりできます。</p>
-  </div>
-  <div class="contents col-sm-offset-4 col-sm-4">
-    <h3>キーワード入力で検索できます。</h3>
-  </div>
-  <div class="contents col-sm-12">
-      <ul>
-        <li>行ったことあったり気になったりしたスポットや飲食店には『気になる！』『良かった！』でリストにできます。</li>
-        <li>参考になった口コミには『参考になった！』でリストにできます。</li>
-        <li>『気になる！』『良かった！』数が多い順にランキングが見れます。</li>
-      </ul>
-    <p>お気に入りのスポットや飲食店を見つけたり、紹介したりしましょう！</p>
-  </div>
-  
-</div>

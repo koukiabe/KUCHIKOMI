@@ -1,10 +1,25 @@
 <div class="row">
-  <aside class="col-xs-4">
-    <%= @user.name %>
-    <%= link_to "登録情報の修正", edit_user_path(@user) %>
-    <a href="#">ログアウト</a>
+  <div class="search-bottom col-sm-offset-6 col-sm-2">
+    <a href="#">スポット検索</a>
+  </div>
+  <div class="search-bottom col-sm-offset-2 col-sm-2">
+    <a href="#">飲食店検索</a>
+  </div>
+  <aside class="user-profile col-sm-3">
+    <h3 class="text-center"><%= @user.name %></h3>
+    <div class="user-image">
+      <% if @user.image? %>
+        <%= image_tag @user.image.url, :size => "250x250" %>
+      <% else %>
+        <%= image_tag("noimage.jpg", :size => "250x250") %>
+      <% end %>
+    <div>
+    <ul>
+      <li><%= link_to "登録情報の修正", edit_user_path(@user) %></li>
+      <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
+    <ul>
   </aside>
-  <div class="col-xs-8">
+  <div class="col-sm-offset-1 col-sm-8">
     <ul class="nav nav-tabs nav-justified">
       <li><a href="#">クチコミ</a></li>
       <li><a href="#">参考になった！</a></li>
