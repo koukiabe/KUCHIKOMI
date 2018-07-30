@@ -1,0 +1,14 @@
+<div class="row">
+  <% if spots %>
+      <h3 class="text-center">検索結果一覧</h3>
+        <% spots.each do |spot| %>
+          <div class="spot-results col-sm-offset-3 col-sm-6 ">
+            <ul>
+              <li>スポット名　：<%= spot.name %></li>
+              <li>住所　：<%= spot.formatted_address %></li>
+              <li class="text-right"><%= link_to "詳細画面へ", spot_path(current_user, place_id: spot.place_id) %></li>
+            </ul>
+          </div>
+        <% end %>
+  <% end %>
+</div>

@@ -11,8 +11,14 @@
         <a class="navbar-brand" href="/">Kuchikomi</a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <% if logged_in? %>
+            <%= form_tag(spots_path(current_user), method: :get, class: 'form-inline') do %>
+              <div class="form-group">
+                <%= text_field_tag :keyword, @keyword, class: 'form-control input-sm', placeholder: "キーワードを入力" %>
+              </div>
+              <%= submit_tag '検索', class: 'btn btn-primary btn-sm' %>
+            <% end %>
         <ul class="nav navbar-nav navbar-right">
-          <% if logged_in? %>
             <li><a href="#">ランキング</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %> <span class="caret"></span></a>

@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180722172545) do
+ActiveRecord::Schema.define(version: 20180730055036) do
+
+  create_table "spot_photos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "spot_id"
+    t.string   "photo_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_spot_photos_on_spot_id", using: :btree
+  end
+
+  create_table "spot_weekdays", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "spot_id"
+    t.text     "weekday_text", limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["spot_id"], name: "index_spot_weekdays_on_spot_id", using: :btree
+  end
+
+  create_table "spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "place_id"
+    t.string   "formatted_address"
+    t.string   "name"
+    t.string   "photo_reference"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "weekday_text"
+  end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -21,4 +47,6 @@ ActiveRecord::Schema.define(version: 20180722172545) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "spot_photos", "spots"
+  add_foreign_key "spot_weekdays", "spots"
 end

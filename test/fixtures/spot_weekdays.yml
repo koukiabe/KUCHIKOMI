@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spot: one
+  weekday_text: MyText
+
+two:
+  spot: two
+  weekday_text: MyText

@@ -1,0 +1,32 @@
+<div class="row">
+  <h3 class="text-center">スポット詳細</h3>
+  <% @spots.each do |spot| %>
+    <div class="detail">
+      <div class="detail-photo col-sm-3">
+        <% @photos.each do |photo| %>
+          <%= image_tag photo %>
+        <% end %>
+      </div>
+      <table class="detail-contents col-sm-offset-5">
+          <tbody class="text-center">
+            <tr>
+                <th>スポット名</th>
+                <td><%= spot.name %></td>
+            </tr>
+            <tr>
+                <th>住所</th>
+                <td><%= spot.formatted_address %></td>
+            </tr>
+            <tr>
+                <th>営業時間</th>
+                <% if spot.weekday_text? %>
+                  <td><%= spot.weekday_text %></td>
+                <% else %>
+                  <td>情報がありませんでした</td>
+                <% end %>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
