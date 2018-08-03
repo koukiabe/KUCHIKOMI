@@ -56,3 +56,4 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'dotenv-rails'
 gem 'kaminari'
+gem 'pry-byebug', group: :development

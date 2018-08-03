@@ -2,11 +2,19 @@
   <% if spots %>
       <h3 class="text-center">検索結果一覧</h3>
         <% spots.each do |spot| %>
-          <div class="spot-results col-sm-offset-3 col-sm-6 ">
+          <div class="spot-results col-sm-6 ">
             <ul>
-              <li>スポット名　：<%= spot.name %></li>
-              <li>住所　：<%= spot.formatted_address %></li>
-              <li class="text-right"><%= link_to "詳細画面へ", spot_path(current_user, place_id: spot.place_id) %></li>
+              <% if spot.persisted? %>
+                <li>スポット名　：<%= link_to spot.name, spot %></li>
+              <% else %>
+                <li>スポット名　：<%= spot.name %></li>
+              <% end %>
+                <li>住所　：<%= spot.formatted_address %></li>
+              <div class="buttons text-center">
+              <% if logged_in? %>
+                <li><%= render 'favorite_spots/good_button', spot: spot %></li>
+              <% end %>
+              </div>
             </ul>
           </div>
         <% end %>

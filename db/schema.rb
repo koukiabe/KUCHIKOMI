@@ -10,7 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180730055036) do
+ActiveRecord::Schema.define(version: 20180801120153) do
+
+  create_table "favorite_spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "type"
+    t.integer  "user_id"
+    t.integer  "spot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_favorite_spots_on_spot_id", using: :btree
+    t.index ["user_id", "spot_id", "type"], name: "index_favorite_spots_on_user_id_and_spot_id_and_type", unique: true, using: :btree
+    t.index ["user_id"], name: "index_favorite_spots_on_user_id", using: :btree
+  end
+
+  create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "spot_id"
+    t.string   "image"
+    t.string   "title"
+    t.string   "review"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_reviews_on_spot_id", using: :btree
+    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
 
   create_table "spot_photos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "spot_id"
@@ -47,6 +70,10 @@ ActiveRecord::Schema.define(version: 20180730055036) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "favorite_spots", "spots"
+  add_foreign_key "favorite_spots", "users"
+  add_foreign_key "reviews", "spots"
+  add_foreign_key "reviews", "users"
   add_foreign_key "spot_photos", "spots"
   add_foreign_key "spot_weekdays", "spots"
 end

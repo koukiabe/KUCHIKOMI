@@ -119,6 +119,13 @@ footer .footer-brand {
   margin: 0; 
   padding: 0;
 }
+.detail-photo {
+  text-align: center;
+}
+.detail-contents {
+  margin-top: 30px;
+  text-align: center;
+}
 .detail-contents table {
   border-collapse: collapse;
 }
@@ -152,4 +159,32 @@ footer .footer-brand {
 }
 .detail {
   margin-top: 50px;
+}
+.review-form {
+  margin-top: 50px;
+}
+.spot-reviews {
+    position: relative;
+    padding: 0.5em 0.7em;
+    margin: 2em 0;
+    background: #fff;
+    color: #5d627b;
+    font-weight: bold;
+}
+.spot-reviews:after {
+    position: absolute;
+    content: '';
+    top: 100%;
+    left: 30px;
+    border: 15px solid transparent;
+    border-top: 15px solid #fff;
+    width: 0;
+    height: 0;
+}
+.spot-reviews ul {
+  list-style: none;
+}
+.spot-reviews p {
+    margin: 0; 
+    padding: 0;
 }

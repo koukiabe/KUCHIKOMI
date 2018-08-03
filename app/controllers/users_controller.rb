@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :show]
   
   def show
+    @reviews = @user.reviews.order('created_at DESC').page(params[:page]).per(10)
+    counts(@user)
   end
 
   def new

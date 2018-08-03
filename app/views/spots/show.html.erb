@@ -1,32 +1,65 @@
 <div class="row">
   <h3 class="text-center">スポット詳細</h3>
-  <% @spots.each do |spot| %>
-    <div class="detail">
-      <div class="detail-photo col-sm-3">
-        <% @photos.each do |photo| %>
-          <%= image_tag photo %>
-        <% end %>
+  <div class="detail col-sm-offset-3 col-sm-6">
+        <div class="detail-photo">
+            <%= image_tag @spot.spot_photo.photo_url %>
+        </div>
+        <table class="detail-contents">
+            <tbody class="text-center">
+              <tr>
+                  <th>スポット名</th>
+                  <td><%= @spot.name %></td>
+              </tr>
+              <tr>
+                  <th>住所</th>
+                  <td><%= @spot.formatted_address %></td>
+              </tr>
+              <tr>
+                  <th>営業時間</th>
+                  <% if @spot.weekday_text? %>
+                    <td><%= @spot.weekday_text %></td>
+                  <% else %>
+                    <td>情報がありませんでした</td>
+                  <% end %>
+              </tr>
+            </tbody>
+        </table>
       </div>
-      <table class="detail-contents col-sm-offset-5">
-          <tbody class="text-center">
-            <tr>
-                <th>スポット名</th>
-                <td><%= spot.name %></td>
-            </tr>
-            <tr>
-                <th>住所</th>
-                <td><%= spot.formatted_address %></td>
-            </tr>
-            <tr>
-                <th>営業時間</th>
-                <% if spot.weekday_text? %>
-                  <td><%= spot.weekday_text %></td>
-                <% else %>
-                  <td>情報がありませんでした</td>
-                <% end %>
-            </tr>
-          </tbody>
-      </table>
-    </div>
-  <% end %>
+      
+  <div class="review-form col-sm-offset-3 col-sm-6">
+
+    <%= form_for(:review, url: reviews_path) do |f| %>
+      <%= hidden_field_tag :spot_id, @spot.id %>
+      <div class="form-group">
+        <%= f.label :title, 'タイトル' %>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :review, 'クチコミ' %>
+        <%= f.text_field :review, class: 'form-control' %>
+      </div>
+
+      <%= f.submit '投稿する', class: 'btn btn-primary btn-sm' %>
+    <% end %>
+  </div>
+  <div class="col-sm-offset-3 col-sm-6">
+    <h3 class="text-center">クチコミ一覧</h3>
+    <% if @spot_review %>
+      <% @spot_review.each.with_index(1) do |review, i| %>
+        <div class="spot-reviews ">
+          <p><%= i %>件目</p>
+          <ul>
+              <li>ユーザー名　：<%= review.user.name %></li>
+              <li>タイトル　：<%= review.title %></li>
+              <li>クチコミ　：<%= review.review %></li>
+            <% if current_user == review.user %>
+              <li class="text-right"><%= link_to "削除", review, method: :delete, data: { confirm: "クチコミを削除しますか？" }, class: 'btn btn-danger btn-xs' %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <% end %>
+    <%= paginate @spot_review %>
+  </div>
 </div>
