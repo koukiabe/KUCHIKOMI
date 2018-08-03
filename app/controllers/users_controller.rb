@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
   before_action :require_user_logged_in, only: [:index, :show]
+  before_action :set_user, only: [:edit, :update]
   
   def show
+    @user = User.find(current_user)
     @reviews = @user.reviews.order('created_at DESC').page(params[:page]).per(10)
     counts(@user)
   end
@@ -35,11 +36,8 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-  
-end
 
-
-private
+  private
 
   def set_user
     @user = User.find(params[:id])
@@ -48,3 +46,4 @@ private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :image)
   end
+end

@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Kuchikomi</a>
+        <%= link_to "Kuchikomi", (current_user ? current_user : root_path), class: "navbar-brand" %>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <% if logged_in? %>
@@ -29,9 +29,12 @@
                 <li><%= link_to 'ログアウト', logout_path, method: :delete %></li>
               </ul>
             </li>
+        </ul>
           <% else %>
+          <ul class="nav navbar-nav navbar-right">
             <li><%= link_to '新規登録', signup_path %></li>
             <li><%= link_to 'ログイン', login_path %></li>
+          </ul>
           <% end %>
         </ul>
       </div>
