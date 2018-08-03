@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :spots, through: :favorite_spots
   has_many :goods
   has_many :good_spots, through: :goods, class_name: 'Spot', source: :spot
+  has_many :likes
+  has_many :like_spots, through: :likes, class_name: 'Spot', source: :spot
   
   def good(spot)
     self.goods.find_or_create_by(spot_id: spot.id)
@@ -26,6 +28,19 @@ class User < ApplicationRecord
 
   def good?(spot)
     self.good_spots.include?(spot)
+  end
+  
+  def like(spot)
+    self.likes.find_or_create_by(spot_id: spot.id)
+  end
+
+  def unlike(spot)
+    like = self.likes.find_by(spot_id: spot.id)
+    like.destroy if like
+  end
+
+  def like?(spot)
+    self.like_spots.include?(spot)
   end
   
 end

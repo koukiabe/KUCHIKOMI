@@ -26,6 +26,7 @@
       <li class="<%= 'active' if current_page?(goods_user_path(@user)) %>"><%= link_to goods_user_path(@user) do %>良かった！ <span class="badge"><%= @count_goods %></span><% end %></li>
       <li class="<%= 'active' if current_page?(likes_user_path(@user)) %>"><%= link_to likes_user_path(@user) do %>気になる！ <span class="badge"><%= @count_likes %></span><% end %></li>
     </ul>
-    <%= render 'reviews/reviews', reviews: @reviews %>
+    <h3 class="text-center">気になる！一覧</h3>
+    <%= render 'spots/spots', spots: @spot %>
   </div>
 </div>

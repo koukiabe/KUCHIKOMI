@@ -118,6 +118,10 @@ footer .footer-brand {
   list-style: none;
   margin: 0; 
   padding: 0;
+  height: 60px;
+}
+.spot-results .buttons {
+  margin-top: 2px;
 }
 .detail-photo {
   text-align: center;
@@ -159,6 +163,9 @@ footer .footer-brand {
 }
 .detail {
   margin-top: 50px;
+}
+.detail .buttons {
+  margin-top: 5px;
 }
 .review-form {
   margin-top: 50px;

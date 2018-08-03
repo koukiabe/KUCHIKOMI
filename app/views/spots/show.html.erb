@@ -1,30 +1,32 @@
 <div class="row">
   <h3 class="text-center">スポット詳細</h3>
   <div class="detail col-sm-offset-3 col-sm-6">
-        <div class="detail-photo">
-            <%= image_tag @spot.spot_photo.photo_url %>
-        </div>
-        <table class="detail-contents">
-            <tbody class="text-center">
-              <tr>
-                  <th>スポット名</th>
-                  <td><%= @spot.name %></td>
-              </tr>
-              <tr>
-                  <th>住所</th>
-                  <td><%= @spot.formatted_address %></td>
-              </tr>
-              <tr>
-                  <th>営業時間</th>
-                  <% if @spot.weekday_text? %>
-                    <td><%= @spot.weekday_text %></td>
-                  <% else %>
-                    <td>情報がありませんでした</td>
-                  <% end %>
-              </tr>
-            </tbody>
-        </table>
-      </div>
+    <div class="detail-photo">
+        <%= image_tag @spot.spot_photo.photo_url %>
+    </div>
+    <table class="detail-contents">
+        <tbody class="text-center">
+          <tr>
+              <th>スポット名</th>
+              <td><%= @spot.name %></td>
+          </tr>
+          <tr>
+              <th>住所</th>
+              <td><%= @spot.formatted_address %></td>
+          </tr>
+          <tr>
+              <th>営業時間</th>
+              <% if @spot.weekday_text? %>
+                <td><%= @spot.weekday_text %></td>
+              <% else %>
+                <td>情報がありませんでした</td>
+              <% end %>
+          </tr>
+        </tbody>
+    </table>
+    <div class="buttons text-center"><span class="badge"><%= @count_like %></span><%= render 'favorite_spots/like_button', spot: @spot %></div>
+    <div class="buttons text-center"><span class="badge"><%= @count_good %></span><%= render 'favorite_spots/good_button', spot: @spot %></div>
+  </div>
       
   <div class="review-form col-sm-offset-3 col-sm-6">
 

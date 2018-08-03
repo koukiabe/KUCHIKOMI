@@ -1,0 +1,13 @@
+<% if current_user.like?(spot) %>
+  <%= form_tag(favorite_spot_path(spot.id), method: :delete) do %>
+    <%= hidden_field_tag :spot_id, spot.id %>
+    <%= hidden_field_tag :type, 'Like' %>
+    <%= submit_tag '(気になる！)解除', class: 'btn btn-danger btn-xs' %>
+  <% end %>
+<% else %>
+  <%= form_tag(favorite_spots_path) do %>
+    <%= hidden_field_tag :place_id, spot.place_id %>
+    <%= hidden_field_tag :type, 'Like' %>
+    <%= submit_tag '気になる！', class: 'btn btn-primary btn-xs' %>
+  <% end %>
+<% end %>

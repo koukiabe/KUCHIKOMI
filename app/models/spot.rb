@@ -15,4 +15,7 @@ class Spot < ApplicationRecord
   has_many :users, through: :favorite_spots
   has_many :goods
   has_many :good_users, through: :goods, class_name: 'User', source: :user
+  has_many :likes
+  has_many :like_users, through: :likes, class_name: 'User', source: :user
+  
 end

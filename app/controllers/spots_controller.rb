@@ -39,6 +39,8 @@ class SpotsController < ApplicationController
   def show
     @spot = Spot.find(params[:id])
     @spot_review = @spot.reviews.page(params[:page]).per(10)
+    @count_like = @spot.like_users.count
+    @count_good = @spot.good_users.count
   end
   
 end

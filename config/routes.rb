@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   get 'signup', to: 'users#new'
   get 'welcome', to: 'homepages#index', as: 'homepages'
-  resources :users, only: [:show, :new, :edit, :create, :update]
+  resources :users, only: [:show, :new, :edit, :create, :update] do
+    member do
+      get :goods
+      get :likes
+    end
+  end
   resources :spots, only: [:index, :show]
   resources :reviews, only: [:create, :destroy]
   resources :favorite_spots, only: [:create, :destroy]

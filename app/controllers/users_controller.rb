@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show]
-  before_action :set_user, only: [:edit, :update]
+  before_action :require_user_logged_in, only: [:index, :show, :goods, :likes]
+  before_action :set_current_user, only: :show
+  before_action :set_user, only: [:edit, :update, :goods, :likes]
   
   def show
-    @user = User.find(current_user)
     @reviews = @user.reviews.order('created_at DESC').page(params[:page]).per(10)
+    @spots = @user.spots.uniq
     counts(@user)
   end
 
@@ -25,6 +26,7 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
     end
+    
   end
 
   def update
@@ -35,9 +37,24 @@ class UsersController < ApplicationController
       flash.now[:danger] = '登録情報の更新に失敗しました'
       render :edit
     end
+    
   end
-
+  
+  def goods
+    @spot = @user.good_spots
+    counts(@user)
+  end
+  
+  def likes
+    @spot = @user.like_spots
+    counts(@user)
+  end
+  
   private
+  
+  def set_current_user
+    @user = User.find(current_user)
+  end
 
   def set_user
     @user = User.find(params[:id])

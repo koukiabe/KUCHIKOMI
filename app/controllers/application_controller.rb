@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   
   def counts(user)
     @count_reviews = user.reviews.count
+    @count_goods = user.good_spots.count
+    @count_likes = user.like_spots.count
   end
   
   def read(result)

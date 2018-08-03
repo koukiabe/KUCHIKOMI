@@ -32,24 +32,33 @@ class FavoriteSpotsController < ApplicationController
         @photos.save
     end
     
-    if params[:type] == 'Good'
+    case params[:type]
+    when 'Good'
       current_user.good(@spot)
       flash[:success] = '良かった！に登録しました。'
+    when 'Like'
+      current_user.like(@spot)
+      flash[:success] = '気になる！に登録しました。'
     end
-
+    
     redirect_back(fallback_location: root_path)
     
   end
 
   def destroy
     @spot = Spot.find(params[:spot_id])
-
-    if params[:type] == 'Good'
-      current_user.ungood(@spot) 
+    
+    case params[:type]
+    when 'Good'
+      current_user.ungood(@spot)
       flash[:danger] = '良かった！を解除しました。'
+    when 'Like'
+      current_user.unlike(@spot)
+      flash[:danger] = '気になる！を解除しました。'
     end
-
+    
     redirect_back(fallback_location: root_path)
+    
   end
   
 end
