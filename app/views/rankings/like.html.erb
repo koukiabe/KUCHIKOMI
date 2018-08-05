@@ -1,0 +1,27 @@
+<h1 class="text-center">気になる！トップ１０</h1>
+<% if @spots.present? %>
+  <div class="row">
+    <% @spots.each.with_index(1) do |spot, i| %>
+      <div class="spot-ranking">
+        <div class="col-sm-offset-3 col-sm-6">
+          <div class="panel panel-default">
+            <div class="panel-heading text-center">
+              <%= image_tag spot.spot_photo.photo_url %>
+            </div>
+            <div class="panel-body">
+              <p class="spot-title text-center"><%= link_to spot.name, spot %></p>
+              <div class="buttons text-center">
+                <% if logged_in? %>
+                  <%= render 'favorite_spots/like_button', spot: spot %>
+                <% end %>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <p class="text-center">第<%= i %>位: 気になる！　<%= @ranking_counts[spot.id] %>件</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :likes
   has_many :like_spots, through: :likes, class_name: 'Spot', source: :spot
   
+  has_many :refs, dependent: :destroy
+  has_many :ref_reviews, through: :refs, source: :review
+  
   def good(spot)
     self.goods.find_or_create_by(spot_id: spot.id)
   end
@@ -41,6 +44,19 @@ class User < ApplicationRecord
 
   def like?(spot)
     self.like_spots.include?(spot)
+  end
+  
+  def ref(review)
+    self.refs.find_or_create_by(review_id: review.id)
+  end
+
+  def unref(review)
+    ref = self.refs.find_by(review_id: review.id)
+    ref.destroy if ref
+  end
+  
+  def ref?(review)
+    self.ref_reviews.include?(review)
   end
   
 end

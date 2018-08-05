@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180801120153) do
+ActiveRecord::Schema.define(version: 20180805120440) do
 
   create_table "favorite_spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "type"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20180801120153) do
     t.index ["spot_id"], name: "index_favorite_spots_on_spot_id", using: :btree
     t.index ["user_id", "spot_id", "type"], name: "index_favorite_spots_on_user_id_and_spot_id_and_type", unique: true, using: :btree
     t.index ["user_id"], name: "index_favorite_spots_on_user_id", using: :btree
+  end
+
+  create_table "refs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_refs_on_review_id", using: :btree
+    t.index ["user_id", "review_id"], name: "index_refs_on_user_id_and_review_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_refs_on_user_id", using: :btree
   end
 
   create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -72,6 +82,8 @@ ActiveRecord::Schema.define(version: 20180801120153) do
 
   add_foreign_key "favorite_spots", "spots"
   add_foreign_key "favorite_spots", "users"
+  add_foreign_key "refs", "reviews"
+  add_foreign_key "refs", "users"
   add_foreign_key "reviews", "spots"
   add_foreign_key "reviews", "users"
   add_foreign_key "spot_photos", "spots"

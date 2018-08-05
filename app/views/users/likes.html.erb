@@ -22,7 +22,7 @@
   <div class="col-sm-offset-1 col-sm-8">
     <ul class="nav nav-tabs nav-justified">
       <li class="<%= 'active' if current_page?(user_path(@user)) %>"><%= link_to user_path(@user) do %>Myクチコミ <span class="badge"><%= @count_reviews %></span><% end %></li>
-      <li><a href="#">参考になった！</a></li>
+      <li class="<%= 'active' if current_page?(refs_user_path(@user)) %>"><%= link_to refs_user_path(@user) do %>参考になった！ <span class="badge"><%= @count_refs %></span><% end %></li>
       <li class="<%= 'active' if current_page?(goods_user_path(@user)) %>"><%= link_to goods_user_path(@user) do %>良かった！ <span class="badge"><%= @count_goods %></span><% end %></li>
       <li class="<%= 'active' if current_page?(likes_user_path(@user)) %>"><%= link_to likes_user_path(@user) do %>気になる！ <span class="badge"><%= @count_likes %></span><% end %></li>
     </ul>

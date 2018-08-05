@@ -1,15 +1,17 @@
 <div class="row">
-  <h3 class="text-center">クチコミ一覧</h3>
-    <% reviews.each do |review| %>
-      <div class="spot-reviews">
-        <ul>
-            <li>タイトル　：<%= review.title %></li>
-            <li>クチコミ　：<%= review.review %></li>
-          <% if current_user == review.user %>
-            <li class="text-right"><%= link_to "削除", review, method: :delete, data: { confirm: "クチコミを削除しますか？" }, class: 'btn btn-danger btn-xs' %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <% reviews.each do |review| %>
+    <div class="spot-reviews">
+      <ul>
+          <li>スポット名　：<%= link_to review.spot.name, spot_path(review.spot.id) %></li>
+          <li>ユーザー名　：<%= review.user.name %></li>
+          <li>タイトル　：<%= review.title %></li>
+          <li>クチコミ　：<%= review.review %></li>
+          <li class="ref-btn text-right"><%= render 'refs/ref_button', review: review %></li>
+        <% if current_user == review.user %>
+          <li class="text-right"><%= link_to "削除", review, method: :delete, data: { confirm: "クチコミを削除しますか？" }, class: 'btn btn-danger btn-xs' %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <%= paginate reviews %>
 </div>

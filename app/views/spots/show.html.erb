@@ -55,6 +55,7 @@
               <li>ユーザー名　：<%= review.user.name %></li>
               <li>タイトル　：<%= review.title %></li>
               <li>クチコミ　：<%= review.review %></li>
+              <li class="ref-btn text-right"><span class="badge"><%= @count_ref %></span><%= render 'refs/ref_button', review: review %></li>
             <% if current_user == review.user %>
               <li class="text-right"><%= link_to "削除", review, method: :delete, data: { confirm: "クチコミを削除しますか？" }, class: 'btn btn-danger btn-xs' %></li>
             <% end %>

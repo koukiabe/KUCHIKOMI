@@ -4,4 +4,8 @@ class Review < ApplicationRecord
   
   belongs_to :user
   belongs_to :spot
+  
+  has_many :refs, dependent: :destroy
+  has_many :ref_users, through: :refs, source: :user
+  
 end
