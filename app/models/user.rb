@@ -8,8 +8,10 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
   
   has_many :reviews
+  has_many :res_reviews
   has_many :spots, through: :reviews
-  
+  has_many :restaurants, through: :res_reviews
+
   has_many :favorite_spots
   has_many :spots, through: :favorite_spots
   has_many :goods
@@ -19,6 +21,15 @@ class User < ApplicationRecord
   
   has_many :refs, dependent: :destroy
   has_many :ref_reviews, through: :refs, source: :review
+  has_many :evas, dependent: :destroy
+  has_many :eva_reviews, through: :evas, source: :res_review
+  
+  has_many :favorite_restaurants
+  has_many :restaurants, through: :favorite_restaurants
+  has_many :nices, class_name: 'Nice'
+  has_many :nice_restaurants, through: :nices, class_name: 'Restaurant', source: :restaurant
+  has_many :cons
+  has_many :con_restaurants, through: :cons, class_name: 'Restaurant', source: :restaurant
   
   def good(spot)
     self.goods.find_or_create_by(spot_id: spot.id)
@@ -57,6 +68,45 @@ class User < ApplicationRecord
   
   def ref?(review)
     self.ref_reviews.include?(review)
+  end
+  
+  def nice(restaurant)
+    self.nices.find_or_create_by(restaurant_id: restaurant.id)
+  end
+
+  def unnice(restaurant)
+    nice = self.nices.find_by(restaurant_id: restaurant.id)
+    nice.destroy if nice
+  end
+
+  def nice?(restaurant)
+    self.nice_restaurants.include?(restaurant)
+  end
+  
+  def con(restaurant)
+    self.cons.find_or_create_by(restaurant_id: restaurant.id)
+  end
+
+  def uncon(restaurant)
+    con = self.cons.find_by(restaurant_id: restaurant.id)
+    con.destroy if con
+  end
+
+  def con?(restaurant)
+    self.con_restaurants.include?(restaurant)
+  end
+  
+  def eva(review)
+    self.evas.find_or_create_by(res_review_id: review.id)
+  end
+
+  def uneva(review)
+    eva = self.evas.find_by(res_review_id: review.id)
+    eva.destroy if eva
+  end
+  
+  def eva?(review)
+    self.eva_reviews.include?(review)
   end
   
 end

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show, :goods, :likes, :refs]
-  before_action :set_user, only: [:show, :edit, :update, :goods, :likes, :refs]
+  before_action :require_user_logged_in, only: [:index, :show, :contents, :goods, :likes, :refs, :evas, :nices, :cons]
+  before_action :set_user, only: [:show, :edit, :update, :contents, :goods, :likes, :refs, :evas, :nices, :cons]
   
   def show
     @reviews = @user.reviews.order('created_at DESC').page(params[:page]).per(10)
@@ -39,6 +39,12 @@ class UsersController < ApplicationController
     
   end
   
+  def contents
+    @reviews = @user.res_reviews.order('created_at DESC').page(params[:page]).per(10)
+    @restaurants = @user.restaurants.uniq
+    counts(@user)
+  end
+  
   def goods
     @spot = @user.good_spots
     counts(@user)
@@ -52,6 +58,22 @@ class UsersController < ApplicationController
   def refs
     @spots = @user.spots.uniq
     @review = @user.ref_reviews.page(params[:page]).per(10)
+    counts(@user)
+  end
+  
+  def evas
+    @restaurants = @user.restaurants.uniq
+    @review = @user.eva_reviews.page(params[:page]).per(10)
+    counts(@user)
+  end
+  
+  def nices
+    @restaurant = @user.nice_restaurants
+    counts(@user)
+  end
+  
+  def cons
+    @restaurant = @user.con_restaurants
     counts(@user)
   end
   

@@ -1,9 +1,9 @@
-class FavoriteSpotsController < ApplicationController
+class FavoriteRestaurantsController < ApplicationController
   
   def create
-    @spot = Spot.find_or_initialize_by(place_id: params[:place_id])
+    @restaurant = Restaurant.find_or_initialize_by(place_id: params[:place_id])
     
-    unless @spot.persisted?
+    unless @restaurant.persisted?
       detail_url = "https://maps.googleapis.com/maps/api/place/details/json?"
       placeid_url = "&placeid=#{params[:place_id]}"
       api_key_url  = "&key=#{ENV['GOOGLE_API_KEY']}"
@@ -12,36 +12,34 @@ class FavoriteSpotsController < ApplicationController
         uri = URI.parse(detail_url + placeid_url + api_key_url + language_url)
         json = Net::HTTP.get(uri)
         results = JSON.parse(json)
-        p "====================="
-        p results
         result = results['result']
-        p "====================="
-        p result
+        # p "====================="
+        # p result
           begin
-            @spot = Spot.new(detail(result))
+            @restaurant = Restaurant.new(detail(result))
           rescue
-            @spot = Spot.new(read(result))
+            @restaurant = Restaurant.new(read(result))
           end
-          @spot.save
+          @restaurant.save
             
         @photos = []
       photo_url = "https://maps.googleapis.com/maps/api/place/photo?"
       max_url = "maxwidth=400&maxheight=400"
-      refe_url = "&photoreference=#{@spot.photo_reference}"
+      refe_url = "&photoreference=#{@restaurant.photo_reference}"
 
         uri = URI.parse(photo_url + max_url + refe_url + api_key_url)
         photo = Net::HTTP.get(uri)
         result = Nokogiri::HTML(photo)
-        @photos = @spot.build_spot_photo(spot_id: @spot.id, photo_url: result.at('//a').[]('href'))
+        @photos = @restaurant.build_restaurant_photo(restaurant_id: @restaurant.id, photo_url: result.at('//a').[]('href'))
         @photos.save
     end
     
     case params[:type]
-    when 'Good'
-      current_user.good(@spot)
+    when 'Nice'
+      current_user.nice(@restaurant)
       flash[:success] = '良かった！に登録しました。'
-    when 'Like'
-      current_user.like(@spot)
+    when 'Con'
+      current_user.con(@restaurant)
       flash[:success] = '気になる！に登録しました。'
     end
     
@@ -50,14 +48,14 @@ class FavoriteSpotsController < ApplicationController
   end
 
   def destroy
-    @spot = Spot.find(params[:spot_id])
+    @restaurant = Restaurant.find(params[:restaurant_id])
     
     case params[:type]
-    when 'Good'
-      current_user.ungood(@spot)
+    when 'Nice'
+      current_user.unnice(@restaurant)
       flash[:danger] = '良かった！を解除しました。'
-    when 'Like'
-      current_user.unlike(@spot)
+    when 'Con'
+      current_user.uncon(@restaurant)
       flash[:danger] = '気になる！を解除しました。'
     end
     

@@ -1,37 +1,37 @@
 <div class="row">
-  <h3 class="text-center">スポット詳細</h3>
+  <h3 class="text-center">飲食店詳細</h3>
   <div class="detail col-sm-offset-3 col-sm-6">
     <div class="detail-photo">
-        <%= image_tag @spot.spot_photo.photo_url %>
+        <%= image_tag @restaurant.restaurant_photo.photo_url %>
     </div>
     <table class="detail-contents">
         <tbody class="text-center">
           <tr>
-              <th>スポット名</th>
-              <td><%= @spot.name %></td>
+              <th>飲食店名</th>
+              <td><%= @restaurant.name %></td>
           </tr>
           <tr>
               <th>住所</th>
-              <td><%= @spot.formatted_address %></td>
+              <td><%= @restaurant.formatted_address %></td>
           </tr>
           <tr>
               <th>営業時間</th>
-              <% if @spot.weekday_text? %>
-                <td><%= @spot.weekday_text %></td>
+              <% if @restaurant.weekday_text? %>
+                <td><%= @restaurant.weekday_text %></td>
               <% else %>
                 <td>情報がありませんでした</td>
               <% end %>
           </tr>
         </tbody>
     </table>
-    <div class="buttons text-center"><span class="badge"><%= @count_like %></span><%= render 'favorite_spots/like_button', spot: @spot %></div>
-    <div class="buttons text-center"><span class="badge"><%= @count_good %></span><%= render 'favorite_spots/good_button', spot: @spot %></div>
+    <div class="buttons text-center"><span class="badge"><%= @count_con %></span><%= render 'favorite_restaurants/con_button', restaurant: @restaurant %></div>
+    <div class="buttons text-center"><span class="badge"><%= @count_nice %></span><%= render 'favorite_restaurants/nice_button', restaurant: @restaurant %></div>
   </div>
       
   <div class="review-form col-sm-offset-3 col-sm-6">
 
-    <%= form_for(:review, url: reviews_path) do |f| %>
-      <%= hidden_field_tag :spot_id, @spot.id %>
+    <%= form_for(:res_review, url: res_reviews_path) do |f| %>
+      <%= hidden_field_tag :restaurant_id, @restaurant.id %>
       <div class="form-group">
         <%= f.label :title, 'タイトル' %>
         <%= f.text_field :title, class: 'form-control' %>
@@ -47,22 +47,22 @@
   </div>
   <div class="col-sm-offset-3 col-sm-6">
     <h3 class="text-center">クチコミ一覧</h3>
-    <% if @spot_review %>
-      <% @spot_review.each.with_index(1) do |review, i| %>
+    <% if @restaurant_review %>
+      <% @restaurant_review.each.with_index(1) do |review, i| %>
         <div class="place-reviews ">
           <p><%= i %>件目</p>
           <ul>
               <li>ユーザー名　：<%= review.user.name %></li>
               <li>タイトル　：<%= review.title %></li>
               <li>クチコミ　：<%= review.review %></li>
-              <li class="ref-btn text-right"><span class="badge"><%= @count_ref %></span><%= render 'refs/ref_button', review: review %></li>
+              <li class="ref-btn text-right"><span class="badge"><%= @count_eva %></span><%= render 'evas/eva_button', review: review %></li>
             <% if current_user == review.user %>
-              <li class="text-right"><%= link_to "削除", review, method: :delete, data: { confirm: "クチコミを削除しますか？" }, class: 'btn btn-danger btn-xs' %></li>
+              <li class="text-right"><%= link_to "削除", res_review_path(review.id), method: :delete, data: { confirm: "クチコミを削除しますか？" }, class: 'btn btn-danger btn-xs' %></li>
             <% end %>
           </ul>
         </div>
       <% end %>
     <% end %>
-    <%= paginate @spot_review %>
+    <%= paginate @restaurant_review %>
   </div>
 </div>

@@ -1,0 +1,2 @@
+class Nice < FavoriteRestaurant
+end

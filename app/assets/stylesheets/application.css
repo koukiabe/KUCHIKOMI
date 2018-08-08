@@ -104,8 +104,8 @@ footer .footer-brand {
   padding-bottom: 30px;
 }
 
-/* spot */
-.spot-results {
+/* spot,restaurant */
+.place-results {
   padding: 0.5em 1em;
   margin: 2em 0;
   color: #5d627b;
@@ -114,13 +114,13 @@ footer .footer-brand {
   border-left: solid 5px #5d627b;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
 }
-.spot-results ul {
+.place-results ul {
   list-style: none;
   margin: 0; 
   padding: 0;
   height: 60px;
 }
-.spot-results .buttons {
+.place-results .buttons {
   margin-top: 2px;
 }
 .detail-photo {
@@ -170,7 +170,7 @@ footer .footer-brand {
 .review-form {
   margin-top: 50px;
 }
-.spot-reviews {
+.place-reviews {
     position: relative;
     padding: 0.5em 0.7em;
     margin: 2em 0;
@@ -178,7 +178,7 @@ footer .footer-brand {
     color: #5d627b;
     font-weight: bold;
 }
-.spot-reviews:after {
+.place-reviews:after {
     position: absolute;
     content: '';
     top: 100%;
@@ -188,10 +188,10 @@ footer .footer-brand {
     width: 0;
     height: 0;
 }
-.spot-reviews ul {
+.place-reviews ul {
   list-style: none;
 }
-.spot-reviews p {
+.place-reviews p {
     margin: 0; 
     padding: 0;
 }

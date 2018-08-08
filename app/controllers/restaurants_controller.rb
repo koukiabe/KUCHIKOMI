@@ -3,19 +3,20 @@ require 'open-uri'
 require 'net/http'
 require 'uri'
 require 'json'
-class SpotsController < ApplicationController
+class RestaurantsController < ApplicationController
   before_action :require_user_logged_in
   
   def index
-    @spots = []
+    @restaurants = []
     @keyword = params[:keyword]
     if @keyword
       base_url  = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
       query_url = "&query=#{params[:keyword]}"
+      type_url = "&types=restaurant"
       api_key_url  = "&key=#{ENV['GOOGLE_API_KEY']}"
       language_url = "&language=ja"
       
-      test = (base_url + query_url + api_key_url + language_url)
+      test = (base_url + query_url + type_url + api_key_url + language_url)
       enc_str = URI.encode test
       uri = URI.parse(enc_str)
       json = Net::HTTP.get(uri)
@@ -26,26 +27,26 @@ class SpotsController < ApplicationController
         results.each do |result|
           begin
           # binding.pry
-            spot = Spot.find_or_initialize_by(place_id: result['place_id'])
+            restaurant = Restaurant.find_or_initialize_by(place_id: result['place_id'])
             # p "====================="
-            # p spot
-            # spot = Spot.new(read(result))
-              unless spot.persisted?
-                  spot = Spot.new(read(result))
+            # p restaurant
+              unless restaurant.persisted?
+                  restaurant = Restaurant.new(read(result))
               end
-            @spots << spot
+            @restaurants << restaurant
           rescue
             next
           end
         end
     end
+    
   end
 
   def show
-    @spot = Spot.find(params[:id])
-    @spot_review = @spot.reviews.page(params[:page]).per(10)
-    @count_like = @spot.like_users.count
-    @count_good = @spot.good_users.count
+    @restaurant = Restaurant.find(params[:id])
+    @restaurant_review = @restaurant.res_reviews.page(params[:page]).per(10)
+    @count_con = @restaurant.con_users.count
+    @count_nice = @restaurant.nice_users.count
   end
   
 end

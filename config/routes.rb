@@ -11,13 +11,21 @@ Rails.application.routes.draw do
   get 'rankings/like', to: 'rankings#like'
   resources :users, only: [:show, :new, :edit, :create, :update] do
     member do
+      get :contents
       get :goods
       get :likes
       get :refs
+      get :evas
+      get :nices
+      get :cons
     end
   end
   resources :spots, only: [:index, :show]
+  resources :restaurants, only: [:index, :show]
   resources :reviews, only: [:create, :destroy]
+  resources :res_reviews, only: [:create, :destroy]
   resources :favorite_spots, only: [:create, :destroy]
+  resources :favorite_restaurants, only: [:create, :destroy]
   resources :refs, only: [:create, :destroy]
+  resources :evas, only: [:create, :destroy]
 end

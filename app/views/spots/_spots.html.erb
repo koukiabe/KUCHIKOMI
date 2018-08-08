@@ -1,7 +1,7 @@
 <div class="row">
   <% if spots %>
     <% spots.each do |spot| %>
-      <div class="spot-results col-sm-6 ">
+      <div class="place-results col-sm-6 ">
         <ul>
           <% if spot.persisted? %>
             <li>スポット名　：<%= link_to spot.name, spot %></li>

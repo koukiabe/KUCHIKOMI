@@ -8,16 +8,17 @@ class ReviewsController < ApplicationController
   before_action :correct_user, only: [:destroy]
 
   def create
-    @spot = Spot.find(params[:spot_id])
-    @review = current_user.reviews.build(review_params)
-    @review.spot_id = @spot.id
-      if @review.save
-        flash[:success] = 'クチコミを投稿しました。'
-        redirect_to spot_path(@spot)
-      else
-        flash.now[:danger] = 'クチコミの投稿に失敗しました。'
-        render 'spots/show'
-      end
+      @spot = Spot.find(params[:spot_id])
+      @review = current_user.reviews.build(review_params)
+      @review.spot_id = @spot.id
+        if @review.save
+          flash[:success] = 'クチコミを投稿しました。'
+          redirect_to spot_path(@spot)
+        else
+          flash.now[:danger] = 'クチコミの投稿に失敗しました。'
+          render 'spots/show'
+        end
+        
   end
 
   def destroy
@@ -28,6 +29,7 @@ class ReviewsController < ApplicationController
   
   
   private
+  
   def review_params
     params.require(:review).permit(:title, :review)
   end

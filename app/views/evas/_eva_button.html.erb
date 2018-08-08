@@ -1,0 +1,11 @@
+<% if current_user.eva?(review) %>
+  <%= form_for(current_user.evas.find_by(res_review_id: review.id), html: { method: :delete }) do |f| %>
+    <%= hidden_field_tag :review_id, review.id %>
+    <%= f.submit '(参考になった！)解除', class: 'btn btn-danger btn-xs' %>
+  <% end %>
+<% else %>
+  <%= form_for(current_user.evas.build) do |f| %>
+    <%= hidden_field_tag :review_id, review.id %>
+    <%= f.submit '参考になった！', class: 'btn btn-primary btn-xs' %>
+  <% end %>
+<% end %>

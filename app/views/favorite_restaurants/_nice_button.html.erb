@@ -1,0 +1,13 @@
+<% if current_user.nice?(restaurant) %>
+  <%= form_tag(favorite_restaurant_path(restaurant.id), method: :delete) do %>
+    <%= hidden_field_tag :restaurant_id, restaurant.id %>
+    <%= hidden_field_tag :type, 'Nice' %>
+    <%= submit_tag '(良かった！)解除', class: 'btn btn-danger btn-xs' %>
+  <% end %>
+<% else %>
+  <%= form_tag(favorite_restaurants_path) do %>
+    <%= hidden_field_tag :place_id, restaurant.place_id %>
+    <%= hidden_field_tag :type, 'Nice' %>
+    <%= submit_tag '良かった！', class: 'btn btn-primary btn-xs' %>
+  <% end %>
+<% end %>

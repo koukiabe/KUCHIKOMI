@@ -1,0 +1,21 @@
+<div class="row">
+  <% if restaurants %>
+    <% restaurants.each do |restaurant| %>
+      <div class="place-results col-sm-6 ">
+        <ul>
+          <% if restaurant.persisted? %>
+            <li>飲食店名　：<%= link_to restaurant.name, restaurant %></li>
+          <% else %>
+            <li>飲食店名　：<%= restaurant.name %></li>
+          <% end %>
+            <li>住所　：<%= restaurant.formatted_address %></li>
+        </ul>
+          <% if logged_in? %>
+              <div class="buttons text-right"><%= render 'favorite_restaurants/con_button', restaurant: restaurant %></div>
+              <div class="buttons text-right"><%= render 'favorite_restaurants/nice_button', restaurant: restaurant %></div>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+</div>

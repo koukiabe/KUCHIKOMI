@@ -3,7 +3,7 @@
     <%= link_to "スポット検索", spots_path %>
   </div>
   <div class="search-bottom col-sm-offset-2 col-sm-2">
-    <a href="#">飲食店検索</a>
+    <%= link_to "飲食店検索", restaurants_path %>
   </div>
   <aside class="user-profile col-sm-3">
     <h3 class="text-center"><%= @user.name %></h3>
@@ -32,11 +32,36 @@
   </aside>
   <div class="col-sm-offset-1 col-sm-8">
     <ul class="nav nav-tabs nav-justified">
-      <li class="<%= 'active' if current_page?(user_path(@user)) %>"><%= link_to user_path(@user) do %>Myクチコミ <span class="badge"><%= @count_reviews %></span><% end %></li>
-      <li class="<%= 'active' if current_page?(refs_user_path(@user)) %>"><%= link_to refs_user_path(@user) do %>参考になった！ <span class="badge"><%= @count_refs %></span><% end %></li>
-      <li class="<%= 'active' if current_page?(goods_user_path(@user)) %>"><%= link_to goods_user_path(@user) do %>良かった！ <span class="badge"><%= @count_goods %></span><% end %></li>
-      <li class="<%= 'active' if current_page?(likes_user_path(@user)) %>"><%= link_to likes_user_path(@user) do %>気になる！ <span class="badge"><%= @count_likes %></span><% end %></li>
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Myクチコミ <span class="badge"><%= @count_reviews + @count_contents %></span><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="<%= 'active' if current_page?(user_path(@user)) %>"><%= link_to user_path(@user) do %>スポット <span class="badge"><%= @count_reviews %></span><% end %></li>
+          <li class="<%= 'active' if current_page?(contents_user_path(@user)) %>"><%= link_to contents_user_path(@user) do %>飲食店 <span class="badge"><%= @count_contents %></span><% end %></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">参考になった！ <span class="badge"><%= @count_refs + @count_evas %></span><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="<%= 'active' if current_page?(refs_user_path(@user)) %>"><%= link_to refs_user_path(@user) do %>スポット <span class="badge"><%= @count_refs %></span><% end %></li>
+          <li class="<%= 'active' if current_page?(evas_user_path(@user)) %>"><%= link_to evas_user_path(@user) do %>飲食店 <span class="badge"><%= @count_evas %></span><% end %></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">良かった！ <span class="badge"><%= @count_goods + @count_nices %></span><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="<%= 'active' if current_page?(goods_user_path(@user)) %>"><%= link_to goods_user_path(@user) do %>スポット <span class="badge"><%= @count_goods %></span><% end %></li>
+          <li class="<%= 'active' if current_page?(nices_user_path(@user)) %>"><%= link_to nices_user_path(@user) do %>飲食店 <span class="badge"><%= @count_nices %></span><% end %></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">気になる！ <span class="badge"><%= @count_likes + @count_cons %></span><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="<%= 'active' if current_page?(likes_user_path(@user)) %>"><%= link_to likes_user_path(@user) do %>スポット <span class="badge"><%= @count_likes %></span><% end %></li>
+          <li class="<%= 'active' if current_page?(cons_user_path(@user)) %>"><%= link_to cons_user_path(@user) do %>飲食店 <span class="badge"><%= @count_cons %></span><% end %></li>
+        </ul>
+      </li>
     </ul>
+    <h3 class="text-center">Myクチコミ一覧(スポット)</h3>
     <%= render 'reviews/reviews', reviews: @reviews %>
   </div>
 </div>
