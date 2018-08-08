@@ -1,23 +1,23 @@
-<h1 class="text-center">気になる！トップ１０(スポット)</h1>
-<% if @spots.present? %>
+<h1 class="text-center">良かった！トップ１０(飲食店)</h1>
+<% if @restaurants.present? %>
   <div class="row">
-    <% @spots.each.with_index(1) do |spot, i| %>
+    <% @restaurants.each.with_index(1) do |restaurant, i| %>
       <div class="spot-ranking">
         <div class="col-sm-offset-3 col-sm-6">
           <div class="panel panel-default">
             <div class="panel-heading text-center">
-              <%= image_tag spot.spot_photo.photo_url %>
+              <%= image_tag restaurant.restaurant_photo.photo_url %>
             </div>
             <div class="panel-body">
-              <p class="spot-title text-center"><%= link_to spot.name, spot %></p>
+              <p class="spot-title text-center"><%= link_to restaurant.name, restaurant %></p>
               <div class="buttons text-center">
                 <% if logged_in? %>
-                  <%= render 'favorite_spots/like_button', spot: spot %>
+                  <%= render 'favorite_restaurants/con_button', restaurant: restaurant %>
                 <% end %>
               </div>
             </div>
             <div class="panel-footer">
-              <p class="text-center">第<%= i %>位: 気になる！　<%= @ranking_counts[spot.id] %>件</p>
+              <p class="text-center">第<%= i %>位: 良かった！　<%= @ranking_counts[restaurant.id] %>件</p>
             </div>
           </div>
         </div>

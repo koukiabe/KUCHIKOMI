@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'welcome', to: 'homepages#index', as: 'homepages'
   get 'rankings/good', to: 'rankings#good'
   get 'rankings/like', to: 'rankings#like'
+  get 'rankings/nice', to: 'rankings#nice'
+  get 'rankings/con', to: 'rankings#con'
   resources :users, only: [:show, :new, :edit, :create, :update] do
     member do
       get :contents
