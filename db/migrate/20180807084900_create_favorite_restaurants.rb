@@ -6,7 +6,7 @@ class CreateFavoriteRestaurants < ActiveRecord::Migration[5.0]
       t.references :restaurant, foreign_key: true
 
       t.timestamps
-      t.index [:user_id, :restaurant_id , :type], unique: true
+      t.index [:user_id, :restaurant_id , :type], name: :favorite_restaurants_fk, unique: true
     end
   end
 end
