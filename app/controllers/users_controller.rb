@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :show, :contents, :goods, :likes, :refs, :evas, :nices, :cons]
-  before_action :set_user, only: [:show, :edit, :update, :contents, :goods, :likes, :refs, :evas, :nices, :cons]
+  before_action :set_user, only: [:edit, :update, :contents, :goods, :likes, :refs, :evas, :nices, :cons]
   
   def show
+    @user = User.find(current_user)
     @reviews = @user.reviews.order('created_at DESC').page(params[:page]).per(10)
     @spots = @user.spots.uniq
     counts(@user)
@@ -78,7 +79,7 @@ class UsersController < ApplicationController
   end
   
   private
-
+  
   def set_user
     @user = User.find(params[:id])
   end

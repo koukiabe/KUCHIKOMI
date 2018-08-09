@@ -11,6 +11,7 @@
           <li class="text-right"><%= link_to "クチコミ削除", review, method: :delete, data: { confirm: "クチコミを削除しますか？" }, class: 'btn btn-danger btn-xs' %></li>
         <% end %>
       </ul>
+      <div class="text-right"><%= image_tag("google.png") %></div>
     </div>
   <% end %>
   <%= paginate reviews %>

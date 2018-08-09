@@ -1,4 +1,4 @@
 <footer>
-    <a class="footer-brand" href="/">Kuchikomi</a>
-  <div class="text-center text-muted">© 2018 KUCHIKOMI.</div>
+   <%= link_to "Kuchikomi", (current_user ? current_user : root_path), class: "footer-brand"%>
+   <div class="text-center text-muted">© 2018 KUCHIKOMI.</div>
 </footer>
