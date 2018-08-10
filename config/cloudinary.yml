@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hif3tw9in
+  api_key: '945649896963394'
+  api_secret: I64ikWGstjcp2t9T4AcWjy4sY8A
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hif3tw9in
+  api_key: '945649896963394'
+  api_secret: I64ikWGstjcp2t9T4AcWjy4sY8A
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hif3tw9in
+  api_key: '945649896963394'
+  api_secret: I64ikWGstjcp2t9T4AcWjy4sY8A
+  enhance_image_tag: true
+  static_image_support: false
