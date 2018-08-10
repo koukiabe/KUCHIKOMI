@@ -12,11 +12,7 @@ class FavoriteSpotsController < ApplicationController
         uri = URI.parse(detail_url + placeid_url + api_key_url + language_url)
         json = Net::HTTP.get(uri)
         results = JSON.parse(json)
-        p "====================="
-        p results
         result = results['result']
-        p "====================="
-        p result
           begin
             @spot = Spot.new(detail(result))
           rescue

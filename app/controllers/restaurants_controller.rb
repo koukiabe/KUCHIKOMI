@@ -21,15 +21,10 @@ class RestaurantsController < ApplicationController
       uri = URI.parse(enc_str)
       json = Net::HTTP.get(uri)
       results = JSON.parse(json)
-      # p "====================="
-      # p results 
       results = results['results']
         results.each do |result|
           begin
-          # binding.pry
             restaurant = Restaurant.find_or_initialize_by(place_id: result['place_id'])
-            # p "====================="
-            # p restaurant
               unless restaurant.persisted?
                   restaurant = Restaurant.new(read(result))
               end

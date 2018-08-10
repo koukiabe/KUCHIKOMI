@@ -13,8 +13,6 @@ class FavoriteRestaurantsController < ApplicationController
         json = Net::HTTP.get(uri)
         results = JSON.parse(json)
         result = results['result']
-        # p "====================="
-        # p result
           begin
             @restaurant = Restaurant.new(detail(result))
           rescue

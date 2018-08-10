@@ -20,16 +20,10 @@ class SpotsController < ApplicationController
       uri = URI.parse(enc_str)
       json = Net::HTTP.get(uri)
       results = JSON.parse(json)
-      # p "====================="
-      # p results 
       results = results['results']
         results.each do |result|
           begin
-          # binding.pry
             spot = Spot.find_or_initialize_by(place_id: result['place_id'])
-            # p "====================="
-            # p spot
-            # spot = Spot.new(read(result))
               unless spot.persisted?
                   spot = Spot.new(read(result))
               end
